@@ -115,8 +115,8 @@ class PostsController < ApplicationController
   def incvote
 
     @vote = Vote.new()
-    @vote.userid = session[:user_id]
-    @vote.postid = params[:id]
+    @vote.user_id = session[:user_id]
+    @vote.post_id = params[:id]
 
     if @vote.save
       @post = Post.find(params[:id])

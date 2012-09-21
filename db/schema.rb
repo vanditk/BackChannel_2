@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(:version => 20120919024042) do
   end
 
   create_table "votes", :force => true do |t|
-    t.integer  "postid"
-    t.integer  "userid"
+    t.integer  "post_id"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
