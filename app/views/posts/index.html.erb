@@ -1,0 +1,44 @@
+<h1>Posts</h1>
+
+<% if !session[:user_id].nil? %>
+    <tr>
+      <td>
+        <%= link_to 'New Post', new_post_path %>
+      </td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+<% end %>
+<table border="1">
+  <tr>
+    <th>Post</th>
+    <th>&nbsp&nbsp&nbsp&nbsp&nbspLast Modified</th>
+    <th>Posted By: </th>
+    <th>Votes:</th>
+    <th>&nbsp&nbsp&nbsp</th>
+    <th>&nbsp&nbsp&nbsp</th>
+  </tr>
+
+<% @posts = @posts.sort_by{|value| value.updated_at}%>
+
+<%@posts.reverse_each do |post| %>
+    <%if(post.pcid ==0)%>
+        <tr>
+          <td><%= post.post %></td>
+          <td><%= post.updated_at %></td>
+          <td><% user = User.find(post.userid)%> <%= user.attributes['username']   %></td>
+          <td><%= post.weight %></td>
+          <td><%= link_to 'Show', post %></td>
+
+          <% if !(session[:user_id].to_s == post.userid.to_s) %>
+              <td><%= link_to 'Vote', posts_incvote_path(:id=>post.postid) %></td>
+          <%end%>
+          <% if ((session[:admin].to_s == "Admin") or (session[:user_id].to_s == post.userid.to_s)) %>
+              <td><%= link_to 'Edit', edit_post_path(post) %></td>
+              <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%end%>
+          <br/>
+        </tr>
+    <%end%>
+<% end %>
+<br />
+</table>

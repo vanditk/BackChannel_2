@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  post: MyString
+  postid: 1
+  category: MyString
+  userid: MyString
+  weight: 1
+  pcid: 1
+
+two:
+  post: MyString
+  postid: 1
+  category: MyString
+  userid: MyString
+  weight: 1
+  pcid: 1

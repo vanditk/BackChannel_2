@@ -1,0 +1,41 @@
+<h1>Search Results</h1>
+
+<% if !session[:user_id].nil? %>
+    <tr>
+      <td>
+        <%= link_to 'New Post', new_post_path %>
+      </td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+<% end %>
+
+<table>
+  <tr>
+    <th>Post</th>
+    <th>&nbsp&nbsp&nbsp&nbsp&nbspLast Modified</th>
+  </tr>
+</table>
+
+<% @posts = @posts.sort_by{|value| value.updated_at}%>
+
+<%@posts.reverse_each do |post| %>
+
+    <tr>
+      <td><%= post.post %></td>
+      <td><%= post.updated_at %></td>
+      <td><%= post.weight %></td>
+      <td><%= link_to 'Show', post %></td>
+
+
+      <% if (session[:admin].to_s == "Admin") or (session[:user_id].to_s == post.userid.to_s) %>
+          <td><%= link_to 'Edit', edit_post_path(post) %></td>
+          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%end%>
+      <br/>
+    </tr>
+
+<% end %>
+<br />
+
+<%= link_to 'Back', posts_path %>
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BackChannel_Application</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<table>
+
+  <tr>
+
+<% if !session[:user_id].nil? %>
+        <td><%= link_to "Log out", '/users/logout' %>
+        <td>Hello </td> <td class="username"> <%= session[:username] %> </td>
+<% end %>
+
+
+<% if (session[:admin] =="Admin") %>
+<td> <%= link_to "List all user", '/users/showAll' %> </td>
+  <% end %>
+
+
+
+
+<% if session[:user_id].nil? %>
+    <td> <%= link_to "Log In", '/users' %> </td>
+<% end %>
+
+
+
+<%= form_tag :controller => "posts", :action => "search" do%>
+    <td><%= text_field_tag("Content")  %> </td>
+    <td><%= select_tag("Search_parameter", options_for_select([['By User', 1],['By Content', 2], ['By category',3]], 3)) %></td>
+    <td><input type="submit" value="Search">&nbsp;</td>
+<% end %>
+
+  </tr>
+</table>
+<%=yield%>
+
+</body>
+</html>

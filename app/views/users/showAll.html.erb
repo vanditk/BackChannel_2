@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<%  if session[:admin].to_s == "Admin"%>
+    <% @user.each do |value| %>
+        <p>
+          <b>Fullname:</b>
+          <%= value.name %>
+        </p>
+
+        <p>
+          <b>Username:</b>
+          <%= value.username %>
+        </p>
+
+
+        <%= link_to 'Edit', edit_user_path(value) %>
+    <% end %>
+<% end %>

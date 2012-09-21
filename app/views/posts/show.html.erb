@@ -1,0 +1,42 @@
+
+<br/><div id =1>
+
+  <b>Post: </b> <br/>
+  <%= @post.post %>
+  <br/>
+  <b>Category:</b>
+  <%= @post.category %>
+  <br/>
+</div>
+<br/>
+<div id =2>
+<table>
+    <th>Content</th> <th>weight</th> <th>Votes</th> <th></th><th></th>
+  <%@comments = Post.find(:all, :conditions => "id != #{@post.postid} and postid ==  #{@post.postid} and pcid==1") %>
+  <%@comments.each do |comments|%>
+      <tr>
+        <td> <%= comments.post %></td>
+        <td><%=comments.weight %> </td>
+      <td><%="votes"%></td>
+      <%#session[:pid] = comments.id%>
+      <% if (session[:admin].to_s == "Admin") or (session[:user_id].to_s == comments.userid.to_s) %>
+
+          <td><%= link_to 'Edit', edit_post_path(comments) %></td>
+
+          <td><%= link_to 'Destroy', comments, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+      <%end%>
+      <% if !(session[:user_id].to_s == comments.userid.to_s) %>
+          <td><%= link_to 'Vote', posts_incvote_path(:id=>comments.id) %></td>
+      <% end %>
+
+
+  <%end%>
+  </table>
+
+  <%session[:pid] = @post.id%>
+
+  </div>
+<%= link_to 'Back', posts_path %> |
+<%= link_to 'Comment', 'createComment'%>
+

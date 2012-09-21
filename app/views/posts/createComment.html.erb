@@ -1,0 +1,16 @@
+<%= form_tag posts_comment_path(:headpostid => @post.postid) %>
+
+<br/>
+<br/>
+<table>
+<tr>
+ <td> Enter Comments: </td>
+ <td><%= text_field("commenttext",nil,:size=>"20" ) %>
+
+    <%= hidden_field("post","post") %>
+ </td>
+ <td><input type="submit" value=" Submit " /></td>
+
+
+</tr>
+</table>

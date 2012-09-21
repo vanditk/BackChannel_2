@@ -1,0 +1,14 @@
+<%= form_tag :action=>'authenticate' %>
+
+Username:
+<%= text_field("userform", "username",:size=>"20" ) %>
+<br /><br />
+Password:
+<%= password_field("userform", "password",:size=>"20" ) %>
+<br /><br />
+<input type="submit" value="Sign In" />
+<br /><br />
+
+<br />
+
+New to Backchannel? &nbsp;&nbsp;<%= link_to 'Create Account!', new_user_path %>
