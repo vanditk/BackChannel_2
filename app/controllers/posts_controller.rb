@@ -64,7 +64,10 @@ class PostsController < ApplicationController
   def comment
 
     @post = Post.new
-    @post.post  = params[:commenttext]
+    comment_text= params[:commenttext]
+    comment_text = comment_text[0]
+    @post.post = comment_text
+
     @post.postid = session[:pid]
     @post.userid=session[:user_id]
     @post.pcid=1
