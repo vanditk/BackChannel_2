@@ -7,17 +7,18 @@
   <b>Category:</b>
   <%= @post.category %>
   <br/>
+  <td> <%=link_to 'show votes', posts_showvotes_path(:id=>@post.postid)  %></td>
 </div>
 <br/>
 <div id =2>
 <table>
-    <th>Content</th> <th>weight</th> <th>Votes</th> <th></th><th></th>
+    <th>Comments</th> <th>weight</th> <th>Votes</th> <th></th><th></th>
   <%@comments = Post.find(:all, :conditions => "id != #{@post.postid} and postid ==  #{@post.postid} and pcid==1") %>
   <%@comments.each do |comments|%>
       <tr>
         <td> <%= comments.post %></td>
         <td><%=comments.weight %> </td>
-      <td><%="votes"%></td>
+      <td><%=link_to 'show Votes', posts_showvotes_path(:id=>comments)  %></td>
       <%#session[:pid] = comments.id%>
       <% if (session[:admin].to_s == "Admin") or (session[:user_id].to_s == comments.userid.to_s) %>
 

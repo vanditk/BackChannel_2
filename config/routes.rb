@@ -8,6 +8,7 @@ BackChannel2::Application.routes.draw do
   match '/users/edit', :controller => 'users', :action => 'edit'
   match '/users/destroy', :controller => 'users', :action => 'destroy'
   match '/users/showAll', :controller => 'users', :action => 'showAll'
+  match '/posts/showvotes', :controller => 'posts', :action => 'showvotes'
   resources :votes
 
   resources :users

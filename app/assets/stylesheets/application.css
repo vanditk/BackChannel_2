@@ -14,9 +14,18 @@
 
 
 .username {
-    color: blue;
-    padding: 0 5px;
+    color: black;
     font-weight: bold;
-
+    font-family: Helvetica;
+    font-size: 15px;
 }
 
+
+.mainHeader{
+    text-align: center;
+    color: blue;
+
+    font-weight: bold;
+    font-family: Helvetica;
+
+}

@@ -16,6 +16,7 @@
     <th>Votes:</th>
     <th>&nbsp&nbsp&nbsp</th>
     <th>&nbsp&nbsp&nbsp</th>
+    <th>&nbsp&nbsp&nbsp</th>
   </tr>
 
 <% @posts = @posts.sort_by{|value| value.updated_at}%>
@@ -32,6 +33,9 @@
           <% if !(session[:user_id].to_s == post.userid.to_s) %>
               <td><%= link_to 'Vote', posts_incvote_path(:id=>post.postid) %></td>
           <%end%>
+
+          <td> <%=link_to 'show votes', posts_showvotes_path(:id=>post.postid)  %></td>
+
           <% if ((session[:admin].to_s == "Admin") or (session[:user_id].to_s == post.userid.to_s)) %>
               <td><%= link_to 'Edit', edit_post_path(post) %></td>
               <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -72,11 +72,13 @@ class PostsController < ApplicationController
     @post.userid=session[:user_id]
     @post.pcid=1
     @post.weight=0
-    @parentPost = Post.find(session[:pid])
+    parentPost = Post.find(session[:pid])
+    parentPost.weight+=1
+    parentPost.save()
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @parentPost, notice: 'Post was successfully created.' }
-        format.json { render json: @parentPost, status: :created, location: @post }
+        format.html { redirect_to parentPost, notice: 'Post was successfully created.' }
+        format.json { render json: parentPost, status: :created, location: @post }
       else
         format.html { render action: "new" }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -125,6 +127,12 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
        @post.weight += 1
       @post.save()
+      parentpost = @post.find_parent_post
+       if(parentpost)
+        parentpost.weight+=1
+         parentpost.save
+       end
+
 
     end
 
@@ -147,6 +155,17 @@ class PostsController < ApplicationController
     elsif  @search_parameter.to_s == '3'
 
       @posts = Post.find_by_sql("SELECT * FROM posts WHERE category like '%#@search_query%'")
+    end
+
+
+  end
+
+  def showvotes
+    @users = []
+
+    votes = Vote.find_all_by_post_id(params[:id])
+    votes.each do |vote|
+      @users << vote.user
     end
 
 

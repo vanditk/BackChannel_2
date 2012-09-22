@@ -7,13 +7,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<table>
+<h1 class="mainHeader"  > BACK CHANNEL APPLICATION </h1>
+<table id="header" width="100%"  >
+  <tr>
+    <td>
+<div id="welcomeMessage" align="left">
+    <table>
 
   <tr>
 
 <% if !session[:user_id].nil? %>
-        <td><%= link_to "Log out", '/users/logout' %>
-        <td>Hello </td> <td class="username"> <%= session[:username] %> </td>
+        <tr><td class="username">Hello  <%= session[:username] %> </td></tr>
+        <tr><td><%= link_to "Log out", '/users/logout' %> </td></tr>
+
 <% end %>
 
 
@@ -27,9 +33,13 @@
 <% if session[:user_id].nil? %>
     <td> <%= link_to "Log In", '/users' %> </td>
 <% end %>
+</table>
+</div>
 
-
-
+    </td>
+    <td>
+<div id="searchBox"  align="right">
+<table>
 <%= form_tag :controller => "posts", :action => "search" do%>
     <td><%= text_field_tag("Content")  %> </td>
     <td><%= select_tag("Search_parameter", options_for_select([['By User', 1],['By Content', 2], ['By category',3]], 3)) %></td>
@@ -37,7 +47,13 @@
 <% end %>
 
   </tr>
+
 </table>
+  </div>
+    </td>
+  </tr>
+</table>
+<hr/>
 <%=yield%>
 
 </body>
