@@ -13,3 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+function togglePwd()
+{
+    var pwdField = document.getElementById("user_password");
+    if(!pwdField.disabled)
+    {pwdField.disabled = true;
+
+    }
+    else
+    {pwdField.disabled = false;}
+
+
+}

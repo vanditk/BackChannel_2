@@ -20,14 +20,14 @@
         <td><%=comments.weight %> </td>
       <td><%=link_to 'show Votes', posts_showvotes_path(:id=>comments)  %></td>
       <%#session[:pid] = comments.id%>
-      <% if (session[:admin].to_s == "Admin") or (session[:user_id].to_s == comments.userid.to_s) %>
+      <% if (session[:admin].to_s == "Admin") or (session[:user_id] == comments.user_id) %>
 
           <td><%= link_to 'Edit', edit_post_path(comments) %></td>
 
           <td><%= link_to 'Destroy', comments, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
       <%end%>
-      <% if !(session[:user_id].to_s == comments.userid.to_s) %>
+      <% if !(session[:user_id].to_s == comments.user_id.to_s) %>
           <td><%= link_to 'Vote', posts_incvote_path(:id=>comments.id) %></td>
       <% end %>
 

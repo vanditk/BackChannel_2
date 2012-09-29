@@ -26,17 +26,37 @@
         <tr>
           <td><%= post.post %></td>
           <td><%= post.updated_at %></td>
-          <td><% user = User.find(post.userid)%> <%= user.attributes['username']   %></td>
+          <td><% user = User.find(post.user_id)%> <%= user.attributes['username']   %></td>
           <td><%= post.weight %></td>
           <td><%= link_to 'Show', post %></td>
-
-          <% if !(session[:user_id].to_s == post.userid.to_s) %>
-              <td><%= link_to 'Vote', posts_incvote_path(:id=>post.postid) %></td>
+          <% votes = Vote.find_all_by_post_id(post.id)
+             containsVoteByCurrentUser=false
+             votes.each do |vote|
+                if (session[:user_id] == vote.user_id )
+                    containsVoteByCurrentUser = true
+                    break
+                end
+             end
+             if containsVoteByCurrentUser == false
+             voteCount = votes.length
+             votesString = "#{voteCount} users voted for this!"
+             else
+               if votes.length-1 > 0
+               voteCount = votes.length-1
+               votesString = "You and #{voteCount} other users voted for this"
+             else
+               votesString = "You voted for this"
+             end
+             end
+          %>
+          <td>
+          <% if !(session[:user_id].to_s == post.user_id.to_s) %>
+              <%= link_to 'Vote', posts_incvote_path(:id=>post.id) %>
           <%end%>
+          </td>
+          <td> <%=link_to votesString, posts_showvotes_path(:id=>post.id)  %></td>
 
-          <td> <%=link_to 'show votes', posts_showvotes_path(:id=>post.postid)  %></td>
-
-          <% if ((session[:admin].to_s == "Admin") or (session[:user_id].to_s == post.userid.to_s)) %>
+          <% if ((session[:admin].to_s == "Admin") or (session[:user_id] == post.user_id)) %>
               <td><%= link_to 'Edit', edit_post_path(post) %></td>
               <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <%end%>

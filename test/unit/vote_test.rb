@@ -21,7 +21,7 @@ class VoteTest < ActiveSupport::TestCase
 
   end
 
-  test "unique vote on a post id by every userid" do
+  test "unique vote on a post id by every user_id" do
     assert_false @vote2.valid?
   end
 

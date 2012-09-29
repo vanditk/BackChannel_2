@@ -14,5 +14,8 @@
 
 
         <%= link_to 'Edit', edit_user_path(value) %>
+        <% if session[:user_id] != value.id %>
+            <%= link_to 'Delete User', value, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%end %>
     <% end %>
 <% end %>

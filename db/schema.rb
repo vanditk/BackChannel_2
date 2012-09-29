@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20120919024042) do
     t.string   "post"
     t.integer  "postid"
     t.string   "category"
-    t.string   "userid"
+    t.integer  "user_id"
     t.integer  "weight"
     t.integer  "pcid"
     t.datetime "created_at", :null => false

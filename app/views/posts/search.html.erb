@@ -27,7 +27,7 @@
       <td><%= link_to 'Show', post %></td>
 
 
-      <% if (session[:admin].to_s == "Admin") or (session[:user_id].to_s == post.userid.to_s) %>
+      <% if (session[:admin].to_s == "Admin") or (session[:user_id] == post.user_id) %>
           <td><%= link_to 'Edit', edit_post_path(post) %></td>
           <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <%end%>

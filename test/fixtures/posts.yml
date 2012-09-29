@@ -4,7 +4,7 @@ one:
   post: MyString
   postid: 1
   category: MyString
-  userid: MyString
+  user_id: MyString
   weight: 1
   pcid: 1
 
@@ -12,6 +12,6 @@ two:
   post: MyString
   postid: 1
   category: MyString
-  userid: MyString
+  user_id: MyString
   weight: 1
   pcid: 1

@@ -41,7 +41,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
-    @post.userid=session[:user_id]
+    @post.user_id=session[:user_id]
     @post.pcid=0
 
     @post.weight=0
@@ -69,7 +69,7 @@ class PostsController < ApplicationController
     @post.post = comment_text
 
     @post.postid = session[:pid]
-    @post.userid=session[:user_id]
+    @post.user_id=session[:user_id]
     @post.pcid=1
     @post.weight=0
     parentPost = Post.find(session[:pid])
@@ -146,7 +146,7 @@ class PostsController < ApplicationController
 
     @search_query= @search_query.downcase
     if @search_parameter.to_s == '1'
-      @posts= Post.find_by_sql("SELECT * FROM posts WHERE userid = (SELECT id from users where username like '%#@search_query%')")
+      @posts= Post.find_by_sql("SELECT * FROM posts WHERE user_id = (SELECT id from users where username like '%#@search_query%')")
 
     elsif  @search_parameter.to_s == '2'
 

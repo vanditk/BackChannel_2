@@ -4,7 +4,7 @@ class CreatePosts < ActiveRecord::Migration
       t.string :post
       t.integer :postid
       t.string :category
-      t.string :userid
+      t.integer :user_id
       t.integer :weight
       t.integer :pcid
 

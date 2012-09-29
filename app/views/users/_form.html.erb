@@ -1,16 +1,22 @@
 <%= form_for(@user) do |f| %>
+
     <%= f.label :name %>
     <%= f.text_field :name %>
     <br /><br />
     <%= f.label :username %>
     <%= f.text_field :username %>
     <br /><br />
+
     <%= f.label :password %>
-    <%= f.password_field :password %>
+    <%= f.password_field :password, :disabled => true %>
+    <input type ="button" id = "enable" name = "enable" onclick="togglePwd()" value="Change Password"/>
+
+
     <br /><br />
     <% if session[:admin].to_s == "Admin" %>
         <%= f.label :role %>
-        <%= f.password_field :role %>
+        <%# f.select(:role,[['Admin','Admin'],['User','User']]) %>
+        <%= select(:user, :role, [['User', 'User'], ['Admin', 'Admin']]) %>
     <% end %>
     <br /><br />
     <%= f.submit %>
