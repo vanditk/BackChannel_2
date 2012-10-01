@@ -1,4 +1,6 @@
 BackChannel2::Application.routes.draw do
+  resources :categories
+
   #match 'posts/:id/comment' => 'posts#comment', :as => :comment
   match '/posts/comment', :controller => 'posts', :action => 'comment'
   match '/posts/createComment', :controller => 'posts', :action => 'createComment'
@@ -9,11 +11,15 @@ BackChannel2::Application.routes.draw do
   match '/users/destroy', :controller => 'users', :action => 'destroy'
   match '/users/showAll', :controller => 'users', :action => 'showAll'
   match '/posts/showvotes', :controller => 'posts', :action => 'showvotes'
+  match '/categories/show', :controller => 'categories', :action => 'show'
+  match '/users/showReport', :controller => 'users', :action => 'showReport'
+
   resources :votes
 
   resources :users
 
   resources :posts
+  resources :categories
 
   root :to => 'users#authenticate'
   # The priority is based upon order of creation:

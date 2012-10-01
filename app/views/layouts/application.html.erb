@@ -28,9 +28,10 @@
 
 <% if (session[:admin] =="Admin") %>
 <td> <%= link_to "List all user", '/users/showAll' %> </td>
+<td> <%= link_to "List all Categories", '/categories' %> </td>
   <% end %>
 
-
+      <td> <%= link_to "List all Posts", '/posts' %> </td>
 
 
 <% if session[:user_id].nil? %>

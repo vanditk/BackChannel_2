@@ -3,10 +3,14 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    if session[:user_id]
+      redirect_to(posts_url)
 
+      else
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
+    end
     end
   end
 
@@ -52,6 +56,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
 
+    @user.role = "User"
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -93,6 +98,7 @@ class UsersController < ApplicationController
 
   def authenticate
 
+
     @user = User.new(params[:userform])
     #find records with username,password
     valid_user = User.where(:username=>@user.username, :password=>@user.password).first
@@ -118,6 +124,20 @@ class UsersController < ApplicationController
   def logout
     reset_session
     redirect_to '/users'
+  end
+
+
+  def showReport
+    user = User.find(params[:id])
+    @posts = Post.where(:user_id=>user.id)
+
+    @votes= []
+    @posts.each { |post|
+
+
+    @votes.append (Vote.where(:post_id=>post.id).each)
+    }
+
   end
 
 end

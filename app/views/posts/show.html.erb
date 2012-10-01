@@ -5,20 +5,43 @@
   <%= @post.post %>
   <br/>
   <b>Category:</b>
-  <%= @post.category %>
+  <%= @post.category.name %>
   <br/>
   <td> <%=link_to 'show votes', posts_showvotes_path(:id=>@post.postid)  %></td>
 </div>
 <br/>
 <div id =2>
-<table>
-    <th>Comments</th> <th>weight</th> <th>Votes</th> <th></th><th></th>
+<table border = "1">
+    <th>Comments</th> <th>Commented by:</th> <th>Votes</th>
   <%@comments = Post.find(:all, :conditions => "id != #{@post.postid} and postid ==  #{@post.postid} and pcid==1") %>
   <%@comments.each do |comments|%>
       <tr>
         <td> <%= comments.post %></td>
-        <td><%=comments.weight %> </td>
-      <td><%=link_to 'show Votes', posts_showvotes_path(:id=>comments)  %></td>
+
+        <td><% user = User.find(comments.user_id)%> <%= user.attributes['username']   %></td>
+
+
+        <% votes = Vote.find_all_by_post_id(comments.id)
+           containsVoteByCurrentUser=false
+           votes.each do |vote|
+             if (session[:user_id] == vote.user_id )
+               containsVoteByCurrentUser = true
+               break
+             end
+           end
+           if containsVoteByCurrentUser == false
+             voteCount = votes.length
+             votesString = "#{voteCount} users voted for this!"
+           else
+             if votes.length-1 > 0
+               voteCount = votes.length-1
+               votesString = "You and #{voteCount} other users voted for this"
+             else
+               votesString = "You voted for this"
+             end
+           end
+        %>
+        <td> <%=link_to votesString, posts_showvotes_path(:id=>comments.id)  %></td>
       <%#session[:pid] = comments.id%>
       <% if (session[:admin].to_s == "Admin") or (session[:user_id] == comments.user_id) %>
 
@@ -27,7 +50,17 @@
           <td><%= link_to 'Destroy', comments, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
       <%end%>
-      <% if !(session[:user_id].to_s == comments.user_id.to_s) %>
+        <%
+           shouldVotesBeShown = true
+           Vote.where(:post_id =>comments.id).each {|x|
+            if x.user_id == session[:user_id]
+              shouldVotesBeShown = false
+              break;
+              end
+           }
+
+        %>
+      <% if !(session[:user_id].to_s == comments.user_id.to_s) and session[:user_id] and shouldVotesBeShown%>
           <td><%= link_to 'Vote', posts_incvote_path(:id=>comments.id) %></td>
       <% end %>
 
@@ -39,5 +72,7 @@
 
   </div>
 <%= link_to 'Back', posts_path %> |
+<% if session[:user_id]%>
 <%= link_to 'Comment', 'createComment'%>
+<%end%>
 

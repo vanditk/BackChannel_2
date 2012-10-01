@@ -8,9 +8,22 @@
     <br /><br />
 
     <%= f.label :password %>
-    <%= f.password_field :password, :disabled => true %>
-    <input type ="button" id = "enable" name = "enable" onclick="togglePwd()" value="Change Password"/>
+    <% shouldBeDisabled = false
+        if session[:user_id]
+             if session[:admin] == "Admin"
+                shouldBeDisabled = true
 
+               end
+
+       end
+
+    %>
+
+    <%= f.password_field :password, :disabled => shouldBeDisabled %>
+
+    <% if shouldBeDisabled %>
+    <input type ="button" id = "enable" name = "enable" onclick="togglePwd()" value="Change Password"/>
+    <%end%>
 
     <br /><br />
     <% if session[:admin].to_s == "Admin" %>

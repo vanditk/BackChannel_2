@@ -12,8 +12,13 @@
           <%= value.username %>
         </p>
 
+        <p>
+          <b>Role:</b>
+          <%= value.role %>
+        </p>
 
         <%= link_to 'Edit', edit_user_path(value) %>
+        <%= link_to 'Show Activity', users_showReport_path(:id => value) %>
         <% if session[:user_id] != value.id %>
             <%= link_to 'Delete User', value, method: :delete, data: { confirm: 'Are you sure?' } %>
         <%end %>

@@ -11,10 +11,10 @@
 <table border="1">
   <tr>
     <th>Post</th>
-    <th>&nbsp&nbsp&nbsp&nbsp&nbspLast Modified</th>
+    <th>Last Modified</th>
     <th>Posted By: </th>
-    <th>Votes:</th>
-    <th>&nbsp&nbsp&nbsp</th>
+
+    <th>Category</th>
     <th>&nbsp&nbsp&nbsp</th>
     <th>&nbsp&nbsp&nbsp</th>
   </tr>
@@ -27,7 +27,10 @@
           <td><%= post.post %></td>
           <td><%= post.updated_at %></td>
           <td><% user = User.find(post.user_id)%> <%= user.attributes['username']   %></td>
-          <td><%= post.weight %></td>
+          <td><% category = Category.find(post.category_id)  %>
+          <%= category.name %>
+
+          </td>
           <td><%= link_to 'Show', post %></td>
           <% votes = Vote.find_all_by_post_id(post.id)
              containsVoteByCurrentUser=false
@@ -50,11 +53,22 @@
              end
           %>
           <td>
-          <% if !(session[:user_id].to_s == post.user_id.to_s) %>
+            <%
+               shouldVotesBeShown = true
+               Vote.where(:post_id =>post.id).each {|x|
+                 if x.user_id == session[:user_id]
+                   shouldVotesBeShown = false
+                   break;
+                 end
+               }
+
+            %>
+          <% if !(session[:user_id].to_s == post.user_id.to_s) and session[:user_id] and shouldVotesBeShown %>
               <%= link_to 'Vote', posts_incvote_path(:id=>post.id) %>
           <%end%>
           </td>
           <td> <%=link_to votesString, posts_showvotes_path(:id=>post.id)  %></td>
+
 
           <% if ((session[:admin].to_s == "Admin") or (session[:user_id] == post.user_id)) %>
               <td><%= link_to 'Edit', edit_post_path(post) %></td>

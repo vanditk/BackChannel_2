@@ -12,8 +12,17 @@
     <% end %>
 
     <div class="field">
-      <%= f.label :category %><br />
-      <%= f.text_field :category %>
+      <%= f.label :category_id %><br />
+
+      <%
+         @categoryNames = []
+         Category.all.each do |x|
+         @categoryNames << [x.name,x.id]
+           end
+
+      %>
+      <%#= select(:post, :category, @categoryNames) %>
+      <%= f.select(:category_id, @categoryNames) %>
     </div>
 
 

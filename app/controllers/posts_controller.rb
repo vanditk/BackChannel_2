@@ -72,7 +72,10 @@ class PostsController < ApplicationController
     @post.user_id=session[:user_id]
     @post.pcid=1
     @post.weight=0
+
     parentPost = Post.find(session[:pid])
+    @post.category_id = parentPost.category_id
+
     parentPost.weight+=1
     parentPost.save()
     respond_to do |format|
@@ -136,8 +139,12 @@ class PostsController < ApplicationController
 
     end
 
-
+    if @post.pcid == 0
     redirect_to posts_path
+    else
+
+      redirect_to  post_path(:id => parentpost.id)
+      end
   end
 
   def search
