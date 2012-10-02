@@ -44,12 +44,17 @@ class VotesController < ApplicationController
   def create
 
     @vote = Vote.new(params[:vote])
+
+    if !@vote.save then
     respond_to do |format|
 
       format.html { render action: "new" }
       format.json { render json: @vote.errors, status: :unprocessable_entity }
+      end
+    else
+    redirect_to votes_path(@vote)
     end
-    redirect_to posts_path
+
   end
 
   # PUT /votes/1

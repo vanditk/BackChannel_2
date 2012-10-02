@@ -3,6 +3,9 @@ require 'test_helper'
 class VotesControllerTest < ActionController::TestCase
   setup do
     @vote = votes(:one)
+    @vote1 = Vote.new
+    @vote1.post_id=298486374
+    @vote1.user_id =980190962
   end
 
   test "should get index" do
@@ -18,10 +21,10 @@ class VotesControllerTest < ActionController::TestCase
 
   test "should create vote" do
     assert_difference('Vote.count') do
-      post :create, vote: { postid: @vote.post_id, user_id: @vote.user_id }
+      post :create, vote: { post_id: @vote1.post_id, user_id: @vote1.user_id }
     end
 
-    assert_redirected_to vote_path(assigns(:vote))
+    assert_redirected_to votes_path(assigns(:vote))
   end
 
   test "should show vote" do
@@ -35,7 +38,7 @@ class VotesControllerTest < ActionController::TestCase
   end
 
   test "should update vote" do
-    put :update, id: @vote, vote: { postid: @vote.post_id, user_id: @vote.user_id }
+    put :update, id: @vote, vote: { post_id: @vote.post_id, user_id: @vote.user_id }
     assert_redirected_to vote_path(assigns(:vote))
   end
 

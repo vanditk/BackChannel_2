@@ -18,16 +18,17 @@ class PostsControllerTest < ActionController::TestCase
 
   test "should create post" do
     assert_difference('Post.count') do
-      post :create, post: { category: @post.category, pcid: @post.pcid, post: @post.post, postid: @post.postid, user_id: @post.user_id, weight: @post.weight }
+      post :create, post: { category_id: @post.category_id, pcid: @post.pcid, post: @post.post, postid: @post.postid, user_id: @post.user_id, weight: @post.weight }
     end
 
     assert_redirected_to post_path(assigns(:post))
   end
 
-  test "should show post" do
-    get :show, id: @post
-    assert_response :success
-  end
+  #controller function not used
+  #test "should show post" do
+  #  get :show, id: @post
+  #  assert_response :success
+  #end
 
   test "should get edit" do
     get :edit, id: @post
@@ -35,7 +36,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "should update post" do
-    put :update, id: @post, post: { category: @post.category, pcid: @post.pcid, post: @post.post, postid: @post.postid, user_id: @post.user_id, weight: @post.weight }
+    put :update, id: @post, post: { category_id: @post.category_id, pcid: @post.pcid, post: @post.post, postid: @post.postid, user_id: @post.user_id, weight: @post.weight }
     assert_redirected_to post_path(assigns(:post))
   end
 
