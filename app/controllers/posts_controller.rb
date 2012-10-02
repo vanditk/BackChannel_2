@@ -162,7 +162,7 @@ class PostsController < ApplicationController
 
     elsif  @search_parameter.to_s == '3'
 
-      @posts = Post.find_by_sql("SELECT * FROM posts WHERE category like '%#@search_query%'")
+      @posts = Post.find_by_sql("SELECT * FROM posts WHERE category_id in (select id from categories WHERE categories.name like '%#@search_query%')")
     end
 
 
