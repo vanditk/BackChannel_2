@@ -6,9 +6,10 @@ class VoteTest < ActiveSupport::TestCase
   # end
   def setup
   @vote1 = Vote.new(:post_id => 5, :user_id => 4)
-  @vote2 = Vote.new(:post_id => 2, :user_id => 2)
+  @vote2 = Vote.new(:post_id => 5, :user_id => 4)
   @vote3 = Vote.new(:post_id => 1, :user_id => 2)
   @vote4 = Vote.new(:post_id => 2, :user_id => 1)
+    @vote5 = Vote.new(:post_id => 298486374, :user_id => 980190962)
   end
   def test_truth
     assert true
@@ -22,7 +23,7 @@ class VoteTest < ActiveSupport::TestCase
   end
 
   test "unique vote on a post id by every user_id" do
-    assert_false @vote2.valid?
+    assert_false @vote5.valid?
   end
 
 end

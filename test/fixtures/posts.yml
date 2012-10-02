@@ -3,15 +3,15 @@
 one:
   post: MyString
   postid: 1
-  category_id: 1
-  user_id: MyString
+  category_id: 980190962
+  user_id: 980190962
   weight: 1
   pcid: 1
 
 two:
   post: MyString
   postid: 1
-  category_id: 1
-  user_id: MyString
+  category_id: 980190962
+  user_id: 980190962
   weight: 1
   pcid: 1

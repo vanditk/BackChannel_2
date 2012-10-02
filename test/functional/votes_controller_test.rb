@@ -5,7 +5,7 @@ class VotesControllerTest < ActionController::TestCase
     @vote = votes(:one)
     @vote1 = Vote.new
     @vote1.post_id=298486374
-    @vote1.user_id =980190962
+    @vote1.user_id =1
   end
 
   test "should get index" do
